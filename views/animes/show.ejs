@@ -1,5 +1,5 @@
 <%-include("../partials/header")%>
-<div class="container">
+
 	<div class="row">
 		<div class="col-md-3">
 			<p class="lead">animega</p>
@@ -16,8 +16,10 @@
 					<h4 class="pull-right">viewers</h4>
 					<h4><a><%=animes.name%></a></h4>
 					<p><%= animes.description%></p>
-					<p><em>Submitted By <%= animes.author.username%></em></p>
-					<% if(currentUser && animes.author.id.equals(currentUser._id)){%>	
+					<p>
+						<em>Submitted by: <%= animes.author.username %>, <%= moment(animes.createdAt).fromNow() %></em>
+					</p>
+					<% if(currentUser && animes.author.id.equals(currentUser._id)||currentUser && currentUser.isAdmin){%>	
 					<a class="btn btn-xs btn-warning" href="/animes/<%=animes._id%>/edit">Edit</a>
 					<form class ="delete-form" action="/animes/<%= animes._id%>?_method=DELETE" method="POST">
 					<button class="btn btn-xs btn-danger">Delete</button>	
@@ -36,12 +38,12 @@
                 	<strong>
                 		<%= comment.author.username %>
                 	</strong>
-                	<span class="pull-right">10 days ago</span>	
+                	<span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>	
                 	<p>
 					<%= comment.text%></p>
-					<% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+					<% if(currentUser && comment.author.id.equals(currentUser._id)||currentUser && currentUser.isAdmin){%>
 					<a class="btn btn-xs btn-warning" href="/animes/<%=animes._id%>/comments/<%=comment._id%>/edit">Edit</a>
-					<form class="delete-form"> action="/animes/<%=animes._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+					<form class="delete-form" action="/animes/<%=animes._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
 					<input type="submit" class="btn btn-xs btn-danger" value="Delete">	
 					</form>
 					<%}%>
@@ -52,5 +54,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 <%-include("../partials/footer")%>

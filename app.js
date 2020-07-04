@@ -16,7 +16,7 @@ var commentRoutes = require("./routes/comments"),
     animeRoutes = require("./routes/animes"),
     indexRoutes = require("./routes/index");
     
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useUnifiedTopology: true });
   
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -26,6 +26,8 @@ app.use(flash());
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 
+
+app.locals.moment = require('moment');
 
 //seedDB();
 //var Comment = require("./models/")

@@ -7,7 +7,7 @@ middlewareObj.checkAnimeOwnership=function(req, res, next){
     if(err){
       res.redirect("back");
     }else{
-      if(foundAnime.author.id.equals(req.user.id)){
+      if(foundAnime.author.id.equals(req.user.id)||req.user.isAdmin){
            next();
       }else{
            req.flash("error", "You don't have permission to do that");
@@ -28,7 +28,7 @@ middlewareObj.checkCommentOwnership=function(req, res, next){
     if(err){
       res.redirect("back");
     }else{
-      if(foundComment.author.id.equals(req.user.id)){
+      if(foundComment.author.id.equals(req.user.id)||req.user.isAdmin){
            next();
       }else{
            req.flash("error", "You don't have permission");

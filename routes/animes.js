@@ -7,7 +7,7 @@ router.get("/", function(req, res){
       if(err){
         console.log(err);
       } else{
-        res.render("animes/index", {animes:allAnimes,currentUser:req.user});
+        res.render("animes/index", {animes:allAnimes,page:'animes',currentUser:req.user});
       }
      });
      //res.render("landing");
