@@ -17,7 +17,7 @@
 					<h4><a><%=animes.name%></a></h4>
 					<p><%= animes.description%></p>
 					<p>
-						<em>Submitted by: <%= animes.author.username %>, <%= moment(animes.createdAt).fromNow() %></em>
+						<em>Submitted by: <a href="/users/<%=animes.author.id%>"> <%= animes.author.username %></a> <%= moment(animes.createdAt).fromNow() %></em>
 					</p>
 					<% if(currentUser && animes.author.id.equals(currentUser._id)||currentUser && currentUser.isAdmin){%>	
 					<a class="btn btn-xs btn-warning" href="/animes/<%=animes._id%>/edit">Edit</a>

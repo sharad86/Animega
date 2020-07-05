@@ -2,36 +2,71 @@ var express = require("express");
 var router = express.Router();
 var Anime = require("../models/anime");
 var middleware = require("../middleware/index");
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'animega', 
+  api_key: '538734537528623', 
+  api_secret: 'uGNMBOrFEBd-D_mkU0RfZY6pP_E'
+});
 router.get("/", function(req, res){
+     var noMatch = null;
+     if(req.query.search){
+       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+       Anime.find({name: regex},function(err,allAnimes){
+        if(err){
+          console.log(err);
+        }else{
+          if(allAnimes.length < 1) {
+                  noMatch = "No animes match that query, please try again.";
+              }
+          res.render("animes/index",{animes:allAnimes,noMatch: noMatch});
+        }
+       });
+     }else{
      Anime.find({}, function(err, allAnimes){
       if(err){
         console.log(err);
       } else{
-        res.render("animes/index", {animes:allAnimes,page:'animes',currentUser:req.user});
+        res.render("animes/index", {animes:allAnimes,noMatch: noMatch,page:'animes',currentUser:req.user});
       }
      });
+   }
      //res.render("landing");
 });
 
 
-router.post("/", middleware.isLoggedIn, function(req, res){
-	var image = req.body.image;
-	var name = req.body.name;
-  var desc = req.body.description;
-  var author = {
-    id:req.user._id,
-    username:req.user.username
+router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
+	cloudinary.uploader.upload(req.file.path, function(result) {
+  // add cloudinary url for the image to the anime object under image property
+  req.body.anime.image = result.secure_url;
+  // add author to anime
+  req.body.anime.author = {
+    id: req.user._id,
+    username: req.user.username
   }
-	var newanime = {name: name, image: image,description:desc,author:author}
-	//animes.push(newanime);
-  Anime.create(newanime, function(err, newlyAdded){
-    if(err){
-      console.log(arr);
-    } else {
-      res.redirect("/animes");
+  Anime.create(req.body.anime, function(err, anime) {
+    if (err) {
+      req.flash('error', err.message);
+      return res.redirect('back');
     }
+    res.redirect('/animes/' + anime.id);
   });
-	
+});
 });
 
 router.get("/new",middleware.isLoggedIn, function(req,res){
@@ -74,6 +109,8 @@ router.delete("/:id",middleware.checkAnimeOwnership, function(req, res){
    });
 });
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

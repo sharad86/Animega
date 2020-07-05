@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Animega</title>
@@ -24,6 +24,14 @@
     <div id="landing-header">
  		<h1>Welcome to Animega!</h1>
 		<a href="/animes" class="btn btn-lg btn-success">View All Animes</a>
+    <p>
+      <form action="/animes" method="GET" class="form-inline">
+        <div class="form-group">
+          <input type="text" name="search" placeholder="anime search..." class="form-control">
+          <input type="submit" value="Search" class="btn btn-default">
+        </div>
+      </form>
+    </p>
     </div>
     
     <ul class="slideshow">
