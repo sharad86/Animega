@@ -1,5 +1,5 @@
 <%-include("../partials/header")%>
-
+<div class="container">
 <header class="jumbotron" >
 <div class ="container">
 <h1>Welcome to Animega</h1>
@@ -30,11 +30,21 @@
   <img src="<%= animes.image %>" class="card-img-top" alt="<%= animes.name %>">
   <div class="card-body">
   <h5 class="card-title"><%= animes.name %></h5>
+  <% if (animes.rating === 0) { %>
+                    <em>No reviews yet.</em>
+                    <% } else { %>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star <% if (animes.rating > 1.5) { %> checked <% } %>"></span>
+                    <span class="fa fa-star <% if (animes.rating > 2.5) { %> checked <% } %>"></span>
+                    <span class="fa fa-star <% if (animes.rating > 3.5) { %> checked <% } %>"></span>
+                    <span class="fa fa-star <% if (animes.rating > 4.5) { %> checked <% } %>"></span>
+                    <% } %>
   <a href="/animes/<%=animes._id%>" class="btn btn-primary">More Info</a>
   </div>
   </div>
 	</div>
 	<% }); %>
+</div>
 </div>
 
 

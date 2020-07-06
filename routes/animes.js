@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Anime = require("../models/anime");
+var Review = require("../models/review");
 var middleware = require("../middleware/index");
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -74,11 +75,14 @@ router.get("/new",middleware.isLoggedIn, function(req,res){
 });
 
 router.get("/:id", function(req,res){
-  Anime.findById(req.params.id).populate("comments").exec(function(err, foundAnime){
+  Anime.findById(req.params.id).populate("comments").populate({
+      path: "reviews",
+        options: {sort: {createdAt: -1}}
+    }).exec(function(err, foundAnime){
        if(err){
         console.log(err);
        } else{
-          console.log(foundAnime);
+          //console.log(foundAnime);
           res.render("animes/show", {animes:foundAnime});
        }
   }); 
@@ -100,11 +104,27 @@ router.put("/:id",middleware.checkAnimeOwnership, function(req, res){
 });
 
 router.delete("/:id",middleware.checkAnimeOwnership, function(req, res){
-   Anime.findByIdAndRemove(req.params.id, function(err){
+   Anime.findByIdAndRemove(req.params.id, function(err, anime){
       if(err){
           res.redirect("/animes");
       } else {
-          res.redirect("/animes");
+          Comment.remove({"_id": {$in: anime.comments}}, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.redirect("/animes");
+                }
+                // deletes all reviews associated with the campground
+                Review.remove({"_id": {$in: anime.reviews}}, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return res.redirect("/animes");
+                    }
+                    //  delete the campground
+                    anime.remove();
+                    req.flash("success", "anime deleted successfully!");
+                    res.redirect("/animes");
+                  });
+              });
       }
    });
 });

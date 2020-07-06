@@ -13,6 +13,7 @@ var flash = require("connect-flash");
 
 
 var commentRoutes = require("./routes/comments"),
+    reviewRoutes = require("./routes/reviews"),
     animeRoutes = require("./routes/animes"),
     indexRoutes = require("./routes/index");
     
@@ -50,9 +51,10 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use(indexRoutes);
+app.use("/",indexRoutes);
 app.use("/animes",animeRoutes);
 app.use("/animes/:id/comments",commentRoutes);
+app.use("/animes/:id/reviews", reviewRoutes);
 app.listen(process.env.PORT ||3000,process.env.IP, function() { 
   console.log('Server listening on port 3000'); 
 });
