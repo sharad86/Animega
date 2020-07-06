@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
 var Anime = require("../models/anime");
+var Comment = require("../models/comment");
 var Review = require("../models/review");
 var middleware = require("../middleware");
 

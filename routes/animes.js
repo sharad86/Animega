@@ -3,6 +3,7 @@ var router = express.Router();
 var Anime = require("../models/anime");
 var Review = require("../models/review");
 var middleware = require("../middleware/index");
+var Comment = require("../models/comment");
 var multer = require('multer');
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {

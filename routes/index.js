@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var Anime = require("../models/anime");
+var Comment = require("../models/comment");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
