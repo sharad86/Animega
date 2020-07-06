@@ -1,12 +1,21 @@
 <%-include("../partials/header")%>
-<div class="container">
-<header class="jumbotron" >
-<div class ="container">
-<h1>Welcome to Animega</h1>
-<p>View Top anime</p>
+
+<header class="jumbotron text-light rounded-0 d-none d-md-block">
+    <div class="container ">
+      <div class="jumbotron-text mt-5 text-center">
+         <% if(noMatch !== null) { %>
+         <h2 class="jumbotronText">No results for <span class="font-italic"><%= noMatch %></span>, try again. </h2>
+        <% } else { %>
+          <h1 class="display-3 jumbotronText">Welcome to Animega!</h1>
+          <p class="lead jumbotronText">View Top animes from the community</p>
+        <% } %>
+      </div>
+
+<span class="text-center">   
 <p>
 <a class = "btn btn-primary btn-large" href="/animes/new">Add New Anime</a>
 </p>
+</span>
 </div>
 </header>
 
@@ -26,10 +35,10 @@
          </div>
 	<% animes.forEach(function(animes){ %>
 	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-  <div class="card">
+  <div class="card indexCards shadow border-0 mt-4">
   <img src="<%= animes.image %>" class="card-img-top" alt="<%= animes.name %>">
   <div class="card-body">
-  <h5 class="card-title"><%= animes.name %></h5>
+  <h5 class="card-title text-capitalize"><%= animes.name %></h5>
   <% if (animes.rating === 0) { %>
                     <em>No reviews yet.</em>
                     <% } else { %>
