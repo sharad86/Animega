@@ -2,12 +2,21 @@
 <div class="row justify-content-center">
         <div class="col-sm-8 col-md-offset-2">
             <form class="form-signin" action="/register" method="POST">
-              <h1 class="h3 mb-3 font-weight-normal ">Please sign up</h1>
+              <h1 class="h3 mb-3 font-weight-heavy ">Please Sign Up</h1>
               <label for="inputUsername" class="sr-only">Username</label>
               <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus>
               <label for="inputPassword" class="sr-only">Password</label>
               <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
-
+              <label for="inputfirstName" class="sr-only">First Name:</label>
+              <input type="text" id="inputfirstName" class="form-control" name="firstName" placeholder="First Name" required autofocus>
+              <label for="inputlastName" class="sr-only">Last Name:</label>
+              <input type="text" id="inputlastName" class="form-control" name="lastName" placeholder="Last Name" required autofocus>
+              <label for="inputEmail" class="sr-only">Email:</label>
+              <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
+              <label for="avatar" class="sr-only">Avatar:</label>
+              <input type="email" id="avatar" name="avatar" class="form-control" placeholder="Avatar url" required autofocus>
+              <label for="inputAdmincode" class="sr-only">Admin Code:</label>
+              <input type="text" id="inputAdmincode" class="form-control" class="form-control" name="admincode" placeholder="Enter Admin Code only if you are admin" >
               <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
             </form>
             <div class="form-signin">

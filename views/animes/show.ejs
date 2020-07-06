@@ -6,9 +6,7 @@
 			<img src="<%= animes.image %>" class="card-img-top" alt="<%= animes.name %>">
 
 			<div class="card-body">
-				<p class="float-right">
-					$<%= animes.cost %>/night
-				</p>
+				
 				<h5 class="card-title"><%= animes.name %></h5>
 				
 				<p>
@@ -62,7 +60,7 @@
                             <p style="text-align: justify; word-wrap: break-word;">
                                 <%= review.text %>
                             </p>
-                            <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                            <% if(currentUser && review.author.id.equals(currentUser._id)||currentUser && currentUser.isAdmin){ %>
                             <a class="btn btn-xs btn-warning"
                                href="/animes/<%=animes._id %>/reviews/<%=review._id %>/edit">Edit</a>
                             <form id="delete-form" action="/animes/<%=animes._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
