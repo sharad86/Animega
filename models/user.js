@@ -4,6 +4,7 @@ var UserSchema = new mongoose.Schema({
 	username: {type:String, unique:true, required:true},
 	password: String,
 	image: String,
+	imageId: String,
 	firstName: String,
 	lastName: String,
 	email: {type:String, unique:true, required:true},
