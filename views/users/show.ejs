@@ -56,7 +56,7 @@
        
         <div class="card shadow-sm mt-3 mb-3">
           <div class="card-header text-capitalize">
-            <% if (currentUser && user._id.equals(currentUser._id)) { %>
+            <% if (currentUser && user._id.equals(currentUser._id)&& currentUser.isAdmin) { %>
               Your Profile
             <% } else { %>
               <%= user.firstName + " " + user.lastName  %>'s Profile
@@ -69,7 +69,7 @@
               <li class="list-group-item">
                 <i class="far fa-calendar-alt"></i> <strong>Joined: </strong><span class="text-muted"><%= moment(user.joined).format('LL') %> </span>             
               </li>              
-              <% if (currentUser && user._id.equals(currentUser._id)) { %>
+              <% if (currentUser && user._id.equals(currentUser._id)&& currentUser.isAdmin) { %>
                 <li class="list-group-item d-flex justify-content-center">
                   <a class="btn btn-warning btn-sm float-left mr-1" href="/users/<%= user._id %>/edit">Edit Profile</a>
                   <form class="float-left" action="/users/<%= user._id %>?_method=DELETE" method="POST">
