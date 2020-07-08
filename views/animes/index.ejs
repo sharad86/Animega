@@ -35,8 +35,10 @@
          </div>
 	<% animes.forEach(function(animes){ %>
 	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-  <div class="card indexCards shadow border-0 mt-4">
+  <div class="card indexCards shadow border-0 mt-4 hoverable">
+  
   <img src="<%= animes.image %>" class="card-img-top" alt="<%= animes.name %>">
+  
   <div class="card-body">
   <h5 class="card-title text-capitalize"><%= animes.name %></h5>
   <% if (animes.rating === 0) { %>

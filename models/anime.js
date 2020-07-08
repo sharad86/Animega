@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Comment = require("./comment");
 var Review = require("./review");
+var User = require("./user");
 var animeSchema = new mongoose.Schema({
   name: String,
   image: String,

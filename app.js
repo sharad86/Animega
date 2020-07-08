@@ -1,3 +1,4 @@
+
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
@@ -10,14 +11,14 @@ var methodOverride = require("method-override");
 var LocalStrategy = require("passport-local");
 var User = require("./models/user");
 var flash = require("connect-flash");
-
+const dotenv =require('dotenv').config();
 
 var commentRoutes = require("./routes/comments"),
     reviewRoutes = require("./routes/reviews"),
     animeRoutes = require("./routes/animes"),
     indexRoutes = require("./routes/index");
     
-mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
   
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
