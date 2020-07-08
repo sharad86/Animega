@@ -5,7 +5,7 @@
         <h1>Change Review</h1>
         </div>
         <div class="col-xs-12 col-md-6 col-lg-4">
-            <form action="/campgrounds/<%= campground_id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+            <form action="/animes/<%= anime_id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <label for="rating">Leave a rating:</label>
                     <fieldset class="starability-basic form-group" id="rating">
@@ -49,7 +49,7 @@
                     <button class="btn btn-primary btn-block">Submit a Review</button>
                 </div>
             </form>
-            <a href="/campgrounds/<%= campground_id %>">Go Back</a>
+            <a href="/animes/<%= anime_id %>">Go Back</a>
         </div>
     </div>
 </div>
